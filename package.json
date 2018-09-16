@@ -7,7 +7,7 @@
     "dev": "NODE_ENV=development nodemon ./dist/bin/www",
     "test_start": "tsc; node ./dist/test/test_index.js",
     "gulp": "gulp clean; gulp tsc",
-    "start": "node ./bin/www"
+    "start": "node ./dist/bin/www"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -22,6 +22,7 @@
     "@types/cookie-parser": "^1.4.1",
     "@types/errorhandler": "^0.0.32",
     "@types/express": "^4.16.0",
+    "@types/gulp-sourcemaps": "^0.0.32",
     "@types/method-override": "^0.0.31",
     "@types/morgan": "^1.7.35",
     "del": "^3.0.0",

@@ -6,17 +6,16 @@ var server = require('../server');
 var debug = require("debug")("express:server");
 var http = require("http");
 
-// create server
+// create http server
 var httpPort = normalizePort(process.env.Port || 8080);
 var app = server.Server.bootstrap().app;
 app.set("port", httpPort);
-
-var httpServer = http.createServer();
+var httpServer = http.createServer(app);
 
 httpServer.listen(httpPort);
 httpServer.on("error", onError);
 httpServer.on("listening", onListening);
-process.on('SIGINT', onClose);
+// process.on('SIGINT', onClose);
 // process.on('SIGTERM', onClose);
 
 function normalizePort(val) {

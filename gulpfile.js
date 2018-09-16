@@ -1,7 +1,8 @@
-const gulp = require("gulp");
-const ts = require("gulp-typescript");
-const del = require("del");
-const tsProject = ts.createProject("tsconfig.json");
+const gulp = require('gulp');
+const ts = require('gulp-typescript');
+const del = require('del');
+const tsProject = ts.createProject('tsconfig.json');
+const sourceMaps = require('gulp-sourcemaps');
 
 // src path
 const SRC_PATH = {
@@ -18,21 +19,23 @@ const DEPLOY_PATH = {
 }
 
 
-gulp.task("cp_views_assets", () => {
+gulp.task('cp_views_assets', () => {
   return gulp.src([SRC_PATH.bin, SRC_PATH.assets, SRC_PATH.views], {
-    base: SRC_PATH.base
-  })
-  .pipe(gulp.dest(DEPLOY_PATH.folderName));
+      base: SRC_PATH.base
+    })
+    .pipe(gulp.dest(DEPLOY_PATH.folderName));
 });
 
-gulp.task("tsc", () => {
+gulp.task('tsc', () => {
   return tsProject.src()
+    .pipe(sourceMaps.init())
     .pipe(tsProject())
+    .pipe(sourceMaps.write('.'))
     .pipe(gulp.dest(DEPLOY_PATH.default));
 });
 
-gulp.task("clean", () => {
+gulp.task('clean', () => {
   return del.sync([`${DEPLOY_PATH.folderName}/`, `!DEPLOY_PATH.folderName`]);
 });
 
-gulp.task("cmp", ["clean", "tsc", "cp_views_assets"], () => {});
+gulp.task('cmp', ['clean', 'tsc', 'cp_views_assets'], () => {});

@@ -8,7 +8,6 @@ import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 import fs from 'fs';
 
-// import {  IndexRoute } from './routes/category';
 import { Apps } from "./routes/apps";
 
 // class Server

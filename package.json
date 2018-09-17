@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development nodemon ./dist/bin/www",
-    "test_start": "tsc; node ./dist/test/test_index.js",
-    "gulp": "gulp clean; gulp tsc",
+    "gulp": "gulp cmp",
     "start": "node ./dist/bin/www"
   },
   "dependencies": {

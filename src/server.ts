@@ -8,7 +8,8 @@ import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 import fs from 'fs';
 
-import { IndexRoute } from "./routes/index";
+// import {  IndexRoute } from './routes/category';
+import { Apps } from "./routes/apps";
 
 // class Server
 export class Server {
@@ -75,7 +76,9 @@ export class Server {
   public routes() {
     let router: express.Router;
     router = express.Router();
-    IndexRoute.createRoute(router);
+
+    new Apps(router).apps();
+
     this.app.use(router);
   }
 

@@ -8,6 +8,8 @@ import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 import fs from 'fs';
 
+import { IndexRoute } from "./routes/index";
+
 // class Server
 export class Server {
   public app: express.Application;
@@ -37,7 +39,7 @@ export class Server {
 
     // view template engin
     this.app.set('views', path.join(__dirname));
-    this.app.set('view engin', 'jinja');
+    this.app.set('view engine', 'ejs');
 
     // use logger
     this.app.use(logger('dev', {
@@ -71,7 +73,10 @@ export class Server {
   }
 
   public routes() {
-
+    let router: express.Router;
+    router = express.Router();
+    IndexRoute.createRoute(router);
+    this.app.use(router);
   }
 
   public api() {

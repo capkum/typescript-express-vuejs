@@ -51,7 +51,7 @@ export class Server extends WinstonLogger {
     this.app.use(cookieParser('SECRET_GOES_HERE'));
 
     // use winston logger
-    this.logger.info('** success express config loaded  **');
+    this.logger.info(`** success express config loaded  **`);
   }
 
   public routes() {
@@ -80,8 +80,10 @@ export class Server extends WinstonLogger {
       // render the error page
       res.status(err.status || 500);
       // res.render('views/error');
+
       // use winston logger
       this.logger.error(`${err.status} ${err.message}`);
+      // this.logger.error(`${err.status} ${err.message} ${new Error().stack}`);
 
       next();
     });

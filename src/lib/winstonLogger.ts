@@ -2,7 +2,6 @@
 import path from 'path';
 import fs from 'fs';
 import { createLogger, transports, format, Logger } from "winston";
-import { Colorizer } from 'logform';
 
 export class WinstonLogger {
   public logger: Logger;
@@ -23,7 +22,6 @@ export class WinstonLogger {
         }),
         myFormat,
       ),
-      // silent: false,
       transports: [
         new transports.Console({
           level: this.level,
@@ -52,9 +50,4 @@ export class WinstonLogger {
 
     return logDir;
   }
-
-  public winsLogger(): Logger {
-    return this.logger;
-  }
-
 }

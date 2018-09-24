@@ -12,6 +12,7 @@ import { WinstonLogger } from "./lib/winstonLogger";
 interface IError {
   status?: number;
   message?: string;
+  stack?: string;
 }
 
 // class Server
@@ -82,8 +83,7 @@ export class Server extends WinstonLogger {
       // res.render('views/error');
 
       // use winston logger
-      this.logger.error(`${err.status} ${err.message}`);
-      // this.logger.error(`${err.status} ${err.message} ${new Error().stack}`);
+      this.logger.error(`${err.status} ${err.message} ${err.stack}`);
 
       next();
     });

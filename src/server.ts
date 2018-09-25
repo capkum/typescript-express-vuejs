@@ -4,7 +4,7 @@ import createError from 'http-errors';
 import express from 'express';
 import { Request, Response, NextFunction as nextFunc } from 'express';
 import path from 'path';
-import { Apps } from './routes/apps';
+import { Apps } from './routes/routes';
 
 import { WinstonLogger } from './lib/winstonLogger';
 

@@ -1,11 +1,9 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import { BaseRoute } from '../route';
+import { BaseRoute } from '../baseRoute';
 
 export class IndexRoute extends BaseRoute {
 
   public static createRoute (router: Router) {
-    console.log('[IndexRoute::create] Creating index route');
-
     // add index route
     router.get('/', (req: Request, res: Response, next: NextFunction) => {
       new IndexRoute().index(req, res, next);

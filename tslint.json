@@ -8,6 +8,7 @@
     "rules": {
         "semicolon": [true, "always"], //세미콜론 사용
         "no-empty": false, //공백 함수 허용
+        "no-unused-variable": false,
         "no-duplicate-imports": false // 중복 임포트 허용
     },
     "rulesDirectory": []

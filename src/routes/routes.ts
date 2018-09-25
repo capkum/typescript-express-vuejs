@@ -1,5 +1,6 @@
 import express from 'express';
-import { IndexRoute } from './category';
+import { IndexRoute } from './appRoute';
+import { SignRoute } from './appRoute/sign';
 
 // apps
 // app들의 라우터를 한곳에 모음
@@ -13,6 +14,7 @@ export class Apps {
   // app을 한곳에
   public apps () {
     IndexRoute.createRoute(this.router);
+    SignRoute.createRoute(this.router);
   }
 
 }

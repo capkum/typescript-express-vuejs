@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon ./dist/bin/www",
     "gulp": "gulp cmp",
-    "start": "node ./dist/bin/www"
+    "start": "node ./dist/bin/www",
+    "tslint": "npx tslint -p ."
   },
   "dependencies": {
     "@types/http-errors": "^1.6.1",
@@ -30,6 +31,7 @@
     "gulp-typescript": "^5.0.0-alpha.3",
     "nodemon": "^1.18.4",
     "tslint": "^5.11.0",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "^3.0.3"
   }
 }

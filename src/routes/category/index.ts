@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from 'express';
 import { BaseRoute } from '../route';
 
 export class IndexRoute extends BaseRoute {
 
-  public static createRoute(router: Router) {
+  public static createRoute (router: Router) {
     console.log('[IndexRoute::create] Creating index route');
 
     // add index route
@@ -12,11 +12,11 @@ export class IndexRoute extends BaseRoute {
     });
   }
 
-  constructor() {
+  constructor () {
     super();
   }
 
-  public index(req: Request, res: Response, next: NextFunction) {
+  public index (req: Request, res: Response, next: NextFunction) {
     this.title = 'Home | Kums WereHouse';
     let options: Object = {
       'msg': 'Welcome to the kums werehouse'

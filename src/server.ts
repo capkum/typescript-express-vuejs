@@ -1,13 +1,12 @@
-import express, { NextFunction } from "express";
-import { Request, Response, NextFunction as nextFunc } from 'express';
-import bodyParser from "body-parser";
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import * as path from "path";
-import createError from "http-errors";
-import { Apps } from "./routes/apps";
-import { Logger } from 'winston'
+import createError from 'http-errors';
+import express from 'express';
+import { Request, Response, NextFunction as nextFunc } from 'express';
+import path from 'path';
+import { Apps } from './routes/apps';
 
-import { WinstonLogger } from "./lib/winstonLogger";
+import { WinstonLogger } from './lib/winstonLogger';
 
 interface IError {
   status?: number;
@@ -19,11 +18,11 @@ interface IError {
 export class Server extends WinstonLogger {
   public app: express.Application;
 
-  public static bootstrap(): Server {
+  public static bootstrap (): Server {
     return new Server();
   }
 
-  constructor() {
+  constructor () {
     super();
     this.app = express();
     this.config();
@@ -32,7 +31,7 @@ export class Server extends WinstonLogger {
     this.errorHandler();
   }
 
-  public config() {
+  public config () {
 
     // js, common path
     this.app.use(express.static(path.join(__dirname, 'assets')));
@@ -55,7 +54,7 @@ export class Server extends WinstonLogger {
     this.logger.info(`** success express config loaded  **`);
   }
 
-  public routes() {
+  public routes () {
     let router: express.Router;
     router = express.Router();
 
@@ -65,11 +64,12 @@ export class Server extends WinstonLogger {
     this.logger.info('** success express routes loaded  **');
   }
 
-  public api() {
+  public api () {
+
   }
 
   // catch 404 and forward to error handler
-  public errorHandler() {
+  public errorHandler () {
     this.app.use((req: Request, res: Response, next: nextFunc) => {
       next(createError(404));
     });

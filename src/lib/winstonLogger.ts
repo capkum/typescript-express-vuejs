@@ -1,16 +1,16 @@
 
-import path from 'path';
 import fs from 'fs';
-import { createLogger, transports, format, Logger } from "winston";
+import path from 'path';
+import { createLogger, format, Logger, transports } from 'winston';
 
 export class WinstonLogger {
   public logger: Logger;
   public level: string;
 
-  constructor() {
+  constructor () {
     this.level = process.env.LOG_LEVEL || 'info';
     const { combine, timestamp, printf, colorize } = format;
-    const myFormat = printf(info => {
+    const myFormat = printf((info) => {
       return `[${info.level}] ${info.timestamp} ${info.message}`;
     });
 
@@ -20,7 +20,7 @@ export class WinstonLogger {
         timestamp({
           format: 'YYYY-MM-DD HH:mm:ss'
         }),
-        myFormat,
+        myFormat
       ),
       transports: [
         new transports.Console({
@@ -28,7 +28,7 @@ export class WinstonLogger {
           format: combine(
             colorize(),
             myFormat
-          ),
+          )
         }),
         new transports.File({
           filename: `${this.logs_path()}/error.log`,
@@ -44,8 +44,8 @@ export class WinstonLogger {
     });
   }
 
-  public logs_path(): string {
-    let logDir: string = path.join(__dirname, '..', 'logs');
+  public logs_path (): string {
+    const logDir: string = path.join(__dirname, '..', 'logs');
     fs.existsSync(logDir) || fs.mkdirSync(logDir);
 
     return logDir;

@@ -5,6 +5,7 @@ import express from 'express';
 import { Request, Response, NextFunction as nextFunc } from 'express';
 import path from 'path';
 import { Apps } from './routes/routes';
+import nunjucks from 'nunjucks';
 
 import { WinstonLogger } from './lib/winstonLogger';
 
@@ -32,19 +33,26 @@ export class Server extends WinstonLogger {
   }
 
   public config () {
-
     // js, common path
     this.app.use(express.static(path.join(__dirname, 'assets')));
 
-    // view template engin
+    // view templates path
     this.app.set('views', path.join(__dirname));
-    this.app.set('view engine', 'ejs');
 
-    // use query string parser
-    this.app.use(bodyParser.urlencoded({ extended: true }));
+    // view engjine nunjucks config
+    nunjucks.configure(this.app.get('views'), {
+      autoescape: true,
+      express: this.app
+    });
+    this.app.set('view engine', 'njk');
 
     // use json parser
     this.app.use(bodyParser.json());
+
+    // use query string parser
+    this.app.use(bodyParser.urlencoded({
+      extended: true
+    }));
 
     // use cookie parser
     // signature: SECRET GOES HERE

@@ -32,12 +32,14 @@ export class SignRoute extends BaseRoute {
     this.app = new Sign();
   }
 
+  // 회원가입 폼
   public index (req: Request, res: Response) {
     this.title = 'Home | Sign';
-    let options: Object;
-
-    // this.render(req, res, 'views/index', options);
-    res.send(`회원가입폼 ${this.app.funcTest()}`);
+    let options: Object = {
+      title: this.title,
+      msg: '회원가입 메세지'
+    };
+    this.render(req, res, 'views/index', options);
   }
 
   public create (req: Request, res: Response) {

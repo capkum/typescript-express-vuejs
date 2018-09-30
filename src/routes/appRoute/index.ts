@@ -17,7 +17,8 @@ export class IndexRoute extends BaseRoute {
   public index (req: Request, res: Response, next: NextFunction) {
     this.title = 'Home | Kums WereHouse';
     let options: Object = {
-      'msg': 'Welcome to the kums werehouse'
+      'msg': 'Welcome to the kums werehouse',
+      'title': this.title
     };
 
     this.render(req, res, 'views/index', options);

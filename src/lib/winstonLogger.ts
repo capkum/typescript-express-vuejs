@@ -8,7 +8,7 @@ export class WinstonLogger {
   public level: string;
 
   constructor () {
-    this.level = process.env.LOG_LEVEL || 'info';
+    this.level = process.env.LOG_LEVEL || 'debug';
     const { combine, timestamp, printf, colorize } = format;
     const myFormat = printf((info) => {
       return `[${info.level}] ${info.timestamp} ${info.message}`;
@@ -16,6 +16,7 @@ export class WinstonLogger {
 
     this.logger = createLogger({
       level: this.level,
+      exitOnError: false,
       format: combine(
         timestamp({
           format: 'YYYY-MM-DD HH:mm:ss'
@@ -49,5 +50,11 @@ export class WinstonLogger {
     fs.existsSync(logDir) || fs.mkdirSync(logDir);
 
     return logDir;
+  }
+}
+
+export class LoggerStream extends WinstonLogger {
+  write (message: string) {
+    this.logger.info(message.substring(0, message.lastIndexOf('\n')));
   }
 }

@@ -6,8 +6,9 @@ import { Request, Response, NextFunction as nextFunc } from 'express';
 import path from 'path';
 import { Apps } from './routes/routes';
 import nunjucks from 'nunjucks';
+import fs from 'fs';
 
-import { WinstonLogger } from './lib/winstonLogger';
+import { WinstonLogger, LoggerStream } from './lib/winstonLogger';
 
 interface IError {
   status?: number;
@@ -60,6 +61,15 @@ export class Server extends WinstonLogger {
 
     // use winston logger
     this.logger.info(`** success express config loaded  **`);
+    this.app.use(require('morgan')('dev',
+      {
+        stream: new LoggerStream()
+      },
+      {
+        flags: 'a'
+      }
+    ));
+
   }
 
   public routes () {

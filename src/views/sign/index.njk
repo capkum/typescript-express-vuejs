@@ -1,11 +1,51 @@
 {% extends "../layout/base.njk" %}
+{% block style %}
+<link rel="stylesheet" href="../../css/sign/sign.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+{% endblock%}
 
 {% block constents %}
-<div>
-    <ul>
-        <li> facebook </li>
-        <li> kakaotalk </li>
-        <li> google </li>
-    </ul>
+<div class="column is-4 is-offset-4 has-text-centered">
+    <div class="box has-background-white">
+        <h1 class="title has-text-grey">Sign</h1>
+        <p class="subtitle has-text-grey"> Pleass insert ID, PASSWORD </p>
+        <form action="#" class="sign-form">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" placeholder="ID" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" placeholder="Password" autofocus="">
+                </div>
+            </div>
+        </form>
+        <div class="buttons">
+            <button class="button is-warning is-medium is-fullwidth">
+                <span class="icon is-small">
+                    <i class="fab fa-facebook-square"></i>
+                </span>
+                <span>
+                    Kakao
+                </span>
+            </button>
+            <button class="button is-info is-medium is-fullwidth">
+                <span class="icon is-small">
+                    <i class="fab fa-facebook-square"></i>
+                </span>
+                <span>
+                    Facebook
+                </span>
+            </button>
+            <button class="button is-danger is-medium is-fullwidth">
+                <span class="icon is-small">
+                    <i class="fab fa-google"></i>
+                </span>
+                <span>Google</span>
+            </button>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 import { BaseRoute } from '../baseRoute';
 import { Request, Response, NextFunction, Router } from 'express';
-import { Sign } from '../../apps/sign';
+import { Sign } from '../../apps/sign/sign';
 
 export class SignRoute extends BaseRoute {
   public app: Sign;
@@ -39,7 +39,7 @@ export class SignRoute extends BaseRoute {
       title: this.title,
       msg: '회원가입 메세지'
     };
-    this.render(req, res, 'views/index', options);
+    this.render(req, res, 'views/sign/index', options);
   }
 
   public create (req: Request, res: Response) {

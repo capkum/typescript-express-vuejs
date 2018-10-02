@@ -6,7 +6,6 @@ import { Request, Response, NextFunction as nextFunc } from 'express';
 import path from 'path';
 import { Apps } from './routes/routes';
 import nunjucks from 'nunjucks';
-import fs from 'fs';
 
 import { WinstonLogger, LoggerStream } from './lib/winstonLogger';
 

@@ -1,0 +1,11 @@
+.box .button {
+    font-weight: bold;
+}
+
+.sign-form {
+    margin-bottom: 20px;
+}
+
+.box .buttons .button:not(:last-child) {
+    margin-right: 0;
+}

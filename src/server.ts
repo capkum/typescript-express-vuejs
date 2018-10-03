@@ -1,19 +1,16 @@
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
+import methodOverride from 'method-override';
 import express from 'express';
-import { Request, Response, NextFunction as nextFunc } from 'express';
 import path from 'path';
-import { Apps } from './routes/routes';
 import nunjucks from 'nunjucks';
+import favicon from 'serve-favicon';
 
+import { Request, Response, NextFunction as nextFunc } from 'express';
+import { Apps } from './routes/routes';
 import { WinstonLogger, LoggerStream } from './lib/winstonLogger';
-
-interface IError {
-  status?: number;
-  message?: string;
-  stack?: string;
-}
+import { IError } from './lib/interfaces';
 
 // class Server
 export class Server extends WinstonLogger {
@@ -33,6 +30,9 @@ export class Server extends WinstonLogger {
   }
 
   public config () {
+    // favicon
+    this.app.use(favicon(path.join(__dirname, 'assets', 'img', 'monhun.ico')));
+
     // js, common path
     this.app.use(express.static(path.join(__dirname, 'assets')));
 
@@ -54,6 +54,8 @@ export class Server extends WinstonLogger {
       extended: true
     }));
 
+    // use method override
+    this.app.use(methodOverride());
     // use cookie parser
     // signature: SECRET GOES HERE
     this.app.use(cookieParser('SECRET_GOES_HERE'));

@@ -7,24 +7,35 @@
 
 {% block constents %}
 <div class="column is-4 is-offset-4 has-text-centered">
-    <div class="box has-background-white">
+    <div id="signForm" class="box has-background-white">
         <h1 class="title has-text-grey" id="app-2">
-            Sign {$ message $}</h1>
+            Sign
+        </h1>
         <p class="subtitle has-text-grey"> Pleass insert ID, PASSWORD </p>
         <form action="#" class="sign-form">
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="text" placeholder="ID" autofocus="">
+                    <input type="text"
+                        name="id"
+                        v-model="id"
+                        v-validate="'required|min:3'"
+                        :class="{'input': true, 'is-large': true, 'is-danger': errors.has('id')}"
+                        placeholder="ID">
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input is-large" type="password" placeholder="Password" autofocus="">
+                    <input
+                        name="pwd"
+                        type="password" v-model="pwd"
+                        v-validate="'required|min:6'"
+                        :class="{'input': true, 'is-large': true, 'is-danger': errors.has('pwd')}"
+                        placeholder="Password">
                 </div>
             </div>
         </form>
         <div class="buttons">
-            <button class="button is-warning is-medium is-fullwidth">
+            <button class="button is-warning is-medium is-fullwidth" @click.prevent="snsButton($event, 'kakao')">
                 <span class="icon is-small">
                     <i class="fab fa-facebook-square"></i>
                 </span>
@@ -32,7 +43,7 @@
                     Kakao
                 </span>
             </button>
-            <button class="button is-info is-medium is-fullwidth">
+            <button class="button is-info is-medium is-fullwidth" @click="snsButton($event, 'facebook')">
                 <span class="icon is-small">
                     <i class="fab fa-facebook-square"></i>
                 </span>
@@ -40,7 +51,7 @@
                     Facebook
                 </span>
             </button>
-            <button class="button is-danger is-medium is-fullwidth">
+            <button class="button is-danger is-medium is-fullwidth" @click="snsButton($event, 'google')">
                 <span class="icon is-small">
                     <i class="fab fa-google"></i>
                 </span>
@@ -52,14 +63,7 @@
 {% endblock %}
 
 {% block script %}
-<script src="js/common/vue.js"></script>
-<script src="js/common/vueConfig.js"></script>
-<script>
-    var app2 = new Vue({
-        el: '#app-2',
-        data: {
-            message: ' (회원가입)'
-        }
-    })
-</script>
+<script src="js/common/vee-validate.js"></script>
+<script src="js/common/vee-validate-ko.js"></script>
+<script src="js/sign/sign.js"></script>
 {% endblock %}

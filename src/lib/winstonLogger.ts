@@ -51,6 +51,10 @@ export class WinstonLogger {
 
     return logDir;
   }
+
+  public loggerType (): Logger {
+    return this.logger;
+  }
 }
 
 export class LoggerStream extends WinstonLogger {

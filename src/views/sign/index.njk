@@ -16,20 +16,20 @@
             <div class="field">
                 <div class="control">
                     <input type="text"
-                        name="id"
-                        v-model="id"
+                        name="userid"
+                        v-model="userid"
                         v-validate="'required|min:3'"
-                        :class="{'input': true, 'is-large': true, 'is-danger': errors.has('id')}"
+                        :class="{'input': true, 'is-large': true, 'is-danger': errors.has('userid')}"
                         placeholder="ID">
                 </div>
             </div>
             <div class="field">
                 <div class="control">
                     <input
-                        name="pwd"
-                        type="password" v-model="pwd"
+                        name="userpwd"
+                        type="password" v-model="userpwd"
                         v-validate="'required|min:6'"
-                        :class="{'input': true, 'is-large': true, 'is-danger': errors.has('pwd')}"
+                        :class="{'input': true, 'is-large': true, 'is-danger': errors.has('userpwd')}"
                         placeholder="Password">
                 </div>
             </div>
@@ -62,12 +62,10 @@
 </div>
 {% endblock %}
 
-{% block axios%}
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-{% endblock %}
-
 {% block script %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="js/common/vee-validate.js"></script>
 <script src="js/common/vee-validate-ko.js"></script>
+<script src="js/common/vueConfig.js"></script>
 <script src="js/sign/sign.js"></script>
 {% endblock %}

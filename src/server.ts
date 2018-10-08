@@ -3,6 +3,8 @@ import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
 import methodOverride from 'method-override';
 import express from 'express';
+import session from 'express-session';
+import passport from 'passport';
 import path from 'path';
 import nunjucks from 'nunjucks';
 import favicon from 'serve-favicon';
@@ -11,6 +13,7 @@ import { Request, Response, NextFunction as nextFunc } from 'express';
 import { Apps } from './routes/routes';
 import { WinstonLogger, LoggerStream } from './lib/winstonLogger';
 import { IError } from './lib/interfaces';
+import { passportConfig } from './lib/passportConfig';
 
 // class Server
 export class Server extends WinstonLogger {
@@ -56,6 +59,7 @@ export class Server extends WinstonLogger {
 
     // use method override
     this.app.use(methodOverride());
+
     // use cookie parser
     // signature: SECRET GOES HERE
     this.app.use(cookieParser('SECRET_GOES_HERE'));
@@ -71,6 +75,17 @@ export class Server extends WinstonLogger {
       }
     ));
 
+    // use session
+    this.app.use(session({
+      secret: 'secretcode',
+      resave: true,
+      saveUninitialized: false
+    }));
+
+    // use passport
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
+    passportConfig();
   }
 
   public routes () {

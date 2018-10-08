@@ -3,28 +3,30 @@ Vue.use(VeeValidate);
 new Vue({
   el: '#signForm',
   data: {
-    id: '',
-    pwd: '',
+    userid: '',
+    userpwd: '',
   },
   mounted() {
     baseUri = window.location.origin;
   },
   methods: {
-    snsButton: function (event, sns) {
+    snsButton: function (event, usersns) {
       event.preventDefault();
 
       this.$validator.validateAll()
         .then(cb => {
-          // cb callback type : boolean
-          if (cb) {
+           if (cb) {
             let apiPath = `${baseUri}/api/sign`
             axios.post(apiPath, {
-              userId: this.id,
-              userPwd: this.pwd,
-              snsAouth: this.sns
+              userid: this.userid,
+              userpwd: this.userpwd,
+              snsAouth: this.usersns
             })
             .then((cb) => {
-              console.log(cb);
+              if (cb.data.userid) {
+                alert('정상 로그인 되었습니다.');
+                window.location.replace('../');
+              }
             })
             .catch((err) => {
               console.log(err);

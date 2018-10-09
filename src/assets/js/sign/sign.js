@@ -30,6 +30,10 @@ new Vue({
             })
             .catch((err) => {
               console.log(err);
+              if (err.response.status === 401) {
+                alert('로그인 실패 하였습니다.\n다시 시도하세요');
+                window.location.replace('./sign');
+              }
             });
           }
         });

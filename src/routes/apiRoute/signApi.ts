@@ -7,14 +7,14 @@ export class SignApi extends BaseRoute {
     let signApi: SignApi = new SignApi();
 
     router.post('/api/sign', passport.authenticate('local'), (req, res) => {
+      console.log('결과');
       let options: Object = {
         'userid': req.body.userid,
         'userpwd': req.body.userpwd
       };
 
       res.json(options);
-    }
-    );
+    });
 
     router.put('/api/sign', (req: Request, res: Response) => {
       signApi.update(req, res);

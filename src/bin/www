@@ -6,13 +6,24 @@
 const server = require('../server');
 const debug = require('debug')('express:server');
 const http = require('http');
+const https = require('https');
 const clc = require('cli-color');
+const fs = require('fs');
 
 // create http server
+// let httpPort = normalizePort(process.env.Port || 8080);
+// let app = server.Server.bootstrap().app;
+// app.set('port', httpPort);
+// let httpServer = http.createServer(app);
+
+// create https server
 let httpPort = normalizePort(process.env.Port || 8080);
 let app = server.Server.bootstrap().app;
 app.set('port', httpPort);
-let httpServer = http.createServer(app);
+let httpServer = https.createServer({
+  key: fs.readFileSync('/Users/capkum/https_key.pem'),
+  cert: fs.readFileSync('/Users/capkum/cert.pem')
+}, app);
 
 httpServer.listen(httpPort);
 httpServer.on('error', onError);

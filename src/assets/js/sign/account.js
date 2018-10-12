@@ -10,10 +10,10 @@ new Vue({
     baseUri = window.location.origin;
   },
   methods: {
-  
-    // oauthLogin: function (event, usersns) {
-    //   console.log(`${usersns}`);
-    // },
+    oauthLogin: function (event, usersns) {
+      event.preventDefault();
+      window.location.href = `${baseUri}/api/sign/oauth/${usersns}`;
+    },
     localLogin: function (event) {
       event.preventDefault();
 

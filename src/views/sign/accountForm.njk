@@ -15,21 +15,13 @@
         <form action="#" class="sign-form">
             <div class="field">
                 <div class="control">
-                    <input type="text"
-                        name="userid"
-                        v-model="userid"
-                        v-validate="'required|min:3'"
-                        :class="{'input': true, 'is-large': true, 'is-danger': errors.has('userid')}"
+                    <input type="text" name="userid" v-model="userid" v-validate="'required|min:3'" :class="{'input': true, 'is-large': true, 'is-danger': errors.has('userid')}"
                         placeholder="ID">
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input
-                        name="userpwd"
-                        type="password" v-model="userpwd"
-                        v-validate="'required|min:6'"
-                        :class="{'input': true, 'is-large': true, 'is-danger': errors.has('userpwd')}"
+                    <input name="userpwd" type="password" v-model="userpwd" v-validate="'required|min:6'" :class="{'input': true, 'is-large': true, 'is-danger': errors.has('userpwd')}"
                         placeholder="Password">
                 </div>
             </div>

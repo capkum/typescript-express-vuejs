@@ -7,8 +7,6 @@ import { OAuth2Strategy } from 'passport-google-oauth';
 
 import { WinstonLogger } from '../lib/winstonLogger';
 
-// let logger = new WinstonLogger().loggerType();
-
 export class PassportConf extends WinstonLogger {
   constructor () {
     super();
@@ -18,7 +16,6 @@ export class PassportConf extends WinstonLogger {
     });
 
     passport.deserializeUser((id, done) => {
-      // 회원으로 들어오는 값을 체크해서 자동으로 로그인하게 해야됨
       this.logger.debug('이미 가입되었습니다.');
       done(null, id);
     });
@@ -27,6 +24,22 @@ export class PassportConf extends WinstonLogger {
 
   public passportConf () {
     this.localStrategy();
+    this.facebookStrategy();
+  }
+
+  public facebookStrategy () {
+    passport.use(new FacebookStrategy({
+      clientID: String(process.env.FACEBOOK_CLIENT_ID),
+      clientSecret: String(process.env.FACEBOOK_CLIENT_SECRET) ,
+      callbackURL: 'https://localhost:8080/api/sign/oauth/facebook/callback',
+      profileFields: ['id', 'displayName', 'photos', 'email'],
+      enableProof: true
+    },
+      (accessToken, refreshToken, profile, done) => {
+        this.logger.debug(profile._json);
+        return done(null, profile);
+      }
+    ));
   }
 
   public localStrategy () {

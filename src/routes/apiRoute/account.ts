@@ -6,6 +6,7 @@ export class AccountApi extends BaseRoute {
   public static createRoute (router: Router) {
     let signApi: AccountApi = new AccountApi();
 
+    // local account
     router.post('/api/sign/account', passport.authenticate('local'), (req, res) => {
       let options: Object = {
         'userid': req.body.userid,
@@ -13,6 +14,27 @@ export class AccountApi extends BaseRoute {
       };
 
       res.json(options);
+    });
+
+    // oauth facebook
+    router.get('/api/sign/oauth/facebook', passport.authenticate('facebook'));
+
+    router.get('/api/sign/oauth/facebook/callback',
+      passport.authenticate('facebook', {
+        failureRedirect: '/account'
+      }),
+      (req: Request, res: Response) => {
+        res.redirect('/');
+      });
+
+    router.get('/api/sign/account/logout', (req: Request, res: Response) => {
+      req.logout();
+
+      if (req.session) {
+        req.session.save(() => {
+          res.redirect('/');
+        });
+      }
     });
 
     // router.put('/api/login', (req: Request, res: Response) => {

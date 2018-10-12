@@ -9,7 +9,7 @@
 <div class="column is-4 is-offset-4 has-text-centered">
     <div id="signForm" class="box has-background-white">
         <h1 class="title has-text-grey" id="app-2">
-            Sign
+            Account
         </h1>
         <p class="subtitle has-text-grey"> Pleass insert ID, PASSWORD </p>
         <form action="#" class="sign-form">
@@ -35,7 +35,12 @@
             </div>
         </form>
         <div class="buttons">
-            <button class="button is-warning is-medium is-fullwidth" @click.prevent="snsButton($event, 'kakao')">
+            <button class="button is-warning is-medium is-fullwidth" @click.prevent="localLogin($event)">
+                <span>
+                    Local
+                </span>
+            </button>
+            <button class="button is-warning is-medium is-fullwidth" @click.prevent="oauthLogin($event, 'kakao')">
                 <span class="icon is-small">
                     <i class="fab fa-facebook-square"></i>
                 </span>
@@ -43,7 +48,7 @@
                     Kakao
                 </span>
             </button>
-            <button class="button is-info is-medium is-fullwidth" @click="snsButton($event, 'facebook')">
+            <button class="button is-info is-medium is-fullwidth" @click="oauthLogin($event, 'facebook')">
                 <span class="icon is-small">
                     <i class="fab fa-facebook-square"></i>
                 </span>
@@ -51,7 +56,7 @@
                     Facebook
                 </span>
             </button>
-            <button class="button is-danger is-medium is-fullwidth" @click="snsButton($event, 'google')">
+            <button class="button is-danger is-medium is-fullwidth" @click="oauthLogin($event, 'google')">
                 <span class="icon is-small">
                     <i class="fab fa-google"></i>
                 </span>
@@ -67,5 +72,5 @@
 <script src="js/common/vee-validate.js"></script>
 <script src="js/common/vee-validate-ko.js"></script>
 <script src="js/common/vueConfig.js"></script>
-<script src="js/sign/sign.js"></script>
+<script src="js/sign/account.js"></script>
 {% endblock %}

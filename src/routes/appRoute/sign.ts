@@ -7,25 +7,25 @@ export class SignRoute extends BaseRoute {
 
   // add route
   public static createRoute (router: Router) {
-    router.get('/sign', (req: Request, res: Response) => {
-      new SignRoute().index(req, res);
+    router.get('/account', (req: Request, res: Response) => {
+      new SignRoute().accountForm(req, res);
     });
 
-    router.post('/sign', (req: Request, res: Response) => {
-      new SignRoute().create(req, res);
-    });
+    // router.post('/sign', (req: Request, res: Response) => {
+    //   new SignRoute().create(req, res);
+    // });
 
-    router.put('/sign', (req: Request, res: Response) => {
-      new SignRoute().update(req, res);
-    });
+    // router.put('/sign', (req: Request, res: Response) => {
+    //   new SignRoute().update(req, res);
+    // });
 
-    router.get('/sign/:userid', (req: Request, res: Response) => {
-      new SignRoute().select(req, res);
-    });
+    // router.get('/sign/:userid', (req: Request, res: Response) => {
+    //   new SignRoute().select(req, res);
+    // });
 
-    router.delete('/sign/:userid', (req: Request, res: Response) => {
-      new SignRoute().delete(req, res);
-    });
+    // router.delete('/sign/:userid', (req: Request, res: Response) => {
+    //   new SignRoute().delete(req, res);
+    // });
   }
   constructor () {
     super();
@@ -33,28 +33,28 @@ export class SignRoute extends BaseRoute {
   }
 
   // 회원가입 폼
-  public index (req: Request, res: Response) {
+  public accountForm (req: Request, res: Response) {
     this.title = 'Home | Sign';
     let options: Object = {
       title: this.title,
       msg: '회원가입 메세지'
     };
-    this.render(req, res, 'views/sign/index', options);
+    this.render(req, res, 'views/sign/accountForm', options);
   }
 
-  public create (req: Request, res: Response) {
-    res.send('회원 정보 입력');
-  }
+  // public create (req: Request, res: Response) {
+  //   res.send('회원 정보 입력');
+  // }
 
-  public update (req: Request, res: Response) {
-    res.send('회원정보 수정');
-  }
+  // public update (req: Request, res: Response) {
+  //   res.send('회원정보 수정');
+  // }
 
-  public select (req: Request, res: Response) {
-    res.send('회원정보');
-  }
+  // public select (req: Request, res: Response) {
+  //   res.send('회원정보');
+  // }
 
-  public delete (req: Request, res: Response) {
-    res.send('회원정보 삭제');
-  }
+  // public delete (req: Request, res: Response) {
+  //   res.send('회원정보 삭제');
+  // }
 }

@@ -11,16 +11,24 @@
         </div>
         <div class="navbar-end">
             <div class="navbar-item">
+                {% if loginStatus === true %}
+                <a href="#" class="navbar-item"> {{userName}} 님 </a>
+                {% endif%}
+            </div>
+            <div class="navbar-item">
                 <div class="buttons">
-                    <a href="#" class="button is-info">
-                        Sign
-                    </a>
+                    {% if loginStatus === true %}
                     <a href="./api/sign/account/logout" class="button is-danger">
                         logout
+                    </a>
+                    {% else %}
+                    <a href="#" class="button is-info">
+                        Sign
                     </a>
                     <a href="./account" class="button is-primary">
                         Login
                     </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

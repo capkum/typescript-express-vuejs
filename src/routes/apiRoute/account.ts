@@ -1,8 +1,11 @@
-import { BaseRoute } from '../baseRoute';
 import { Request, Response, Router } from 'express';
 import passport from 'passport';
+import { BaseRoute } from '../baseRoute';
+import { Logger } from 'winston';
+import { WinstonLogger } from '../../lib/winstonLogger';
 
 export class AccountApi extends BaseRoute {
+  public static logger: Logger = new WinstonLogger().loggerType();
   public static createRoute (router: Router) {
     let signApi: AccountApi = new AccountApi();
 
@@ -24,10 +27,12 @@ export class AccountApi extends BaseRoute {
         failureRedirect: '/account'
       }),
       (req: Request, res: Response) => {
+        this.logger.info(`[LOGIN] id:${req.user._json.id} ${req.user._json.name}`);
         res.redirect('/');
       });
 
     router.get('/api/sign/account/logout', (req: Request, res: Response) => {
+      this.logger.info(`[LOGOUT] id:${req.user._json.id} ${req.user._json.name}`);
       req.logout();
 
       if (req.session) {

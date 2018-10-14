@@ -1,0 +1,19 @@
+/* .navbar-end> navbar-item:hover {
+    background-color: #2366d1;
+    color: #fff;
+} */
+
+.navbar-start a.navbar-item:hover {
+    font-weight: bold;
+}
+
+.navbar-end .navbar-item:first-child {
+    color: white;
+    height: 3.25rem;
+}
+
+.navbar-end .navbar-item:first-child:hover {
+    background-color: #2366d1;
+    color: white;
+    font-weight: bold;
+}

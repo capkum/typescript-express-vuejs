@@ -5,8 +5,8 @@ export class IndexRoute extends BaseRoute {
 
   public static createRoute (router: Router) {
     // add index route
-    router.get('/', (req: Request, res: Response, next: NextFunction) => {
-      new IndexRoute().index(req, res, next);
+    router.get('/', (req: Request, res: Response) => {
+      new IndexRoute().index(req, res);
     });
   }
 
@@ -14,11 +14,15 @@ export class IndexRoute extends BaseRoute {
     super();
   }
 
-  public index (req: Request, res: Response, next: NextFunction) {
+  public index (req: Request, res: Response) {
     this.title = 'Home | Kums WereHouse';
+    let loginStatus: boolean = (req.user !== undefined) ? true : false;
+    let userName: string = (req.user !== undefined) ? req.user._json.name : '';
     let options: Object = {
       'msg': 'Welcome to the kums werehouse',
-      'title': this.title
+      'title': this.title,
+      'loginStatus': loginStatus,
+      'userName': userName
     };
 
     this.render(req, res, 'views/index', options);

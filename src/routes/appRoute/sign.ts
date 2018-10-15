@@ -34,10 +34,8 @@ export class SignRoute extends BaseRoute {
 
   // 회원가입 폼
   public accountForm (req: Request, res: Response) {
-    this.title = 'Home | Sign';
     let options: Object = {
-      title: this.title,
-      msg: '회원가입 메세지'
+      'title': 'Home | Sign'
     };
     this.render(req, res, 'views/sign/accountForm', options);
   }

@@ -15,12 +15,27 @@ export class IndexRoute extends BaseRoute {
   }
 
   public index (req: Request, res: Response) {
-    this.title = 'Home | Kums WereHouse';
+    let userName: string = '';
     let loginStatus: boolean = (req.user !== undefined) ? true : false;
-    let userName: string = (req.user !== undefined) ? req.user._json.name : '';
+
+    if (loginStatus) {
+      switch (req.user.provider) {
+        case 'kakao':
+          userName = req.user._json.properties.nickname;
+          break;
+
+        case 'facebook':
+          userName = req.user._json.name;
+          break;
+
+        case 'google':
+          userName = req.user._json.displayName;
+          break;
+      }
+    }
+
     let options: Object = {
-      'msg': 'Welcome to the kums werehouse',
-      'title': this.title,
+      'title': 'Home | Kums WereHouse',
       'loginStatus': loginStatus,
       'userName': userName
     };

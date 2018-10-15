@@ -19,6 +19,21 @@ export class AccountApi extends BaseRoute {
       res.json(options);
     });
 
+    // oauth kakao
+    router.get('/api/sign/oauth/kakao', passport.authenticate('kakao', {
+      failureRedirect: '#!/account'
+    }));
+
+    router.get('/api/sign/oauth/kakao/callback',
+      passport.authenticate('kakao', {
+        failureRedirect: '#!/account'
+      }),
+      (req: Request, res: Response, next) => {
+        this.logger.info(`[LOGIN] id:${req.user._json.id} ${req.user._json.properties.nickname}`);
+        res.redirect('/');
+      }
+    );
+
     // oauth facebook
     router.get('/api/sign/oauth/facebook', passport.authenticate('facebook'));
 
@@ -31,6 +46,21 @@ export class AccountApi extends BaseRoute {
         res.redirect('/');
       });
 
+    // oauth google
+    router.get('/api/sign/oauth/google/', passport.authenticate('google',{
+      scope: ['profile']
+    }));
+
+    router.get('/api/sign/oauth/google/callback',
+      passport.authenticate('google', {
+        failureRedirect: '/account'
+      }),
+      (req: Request, res: Response) => {
+        this.logger.info(`[LOGIN] id:${req.user._json.id} ${req.user.displayName}`);
+        res.redirect('/');
+      });
+
+    // log out
     router.get('/api/sign/account/logout', (req: Request, res: Response) => {
       this.logger.info(`[LOGOUT] id:${req.user._json.id} ${req.user._json.name}`);
       req.logout();

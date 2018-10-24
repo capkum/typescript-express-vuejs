@@ -1,19 +1,11 @@
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
-import methodOverride from 'method-override';
 import express from 'express';
-import session from 'express-session';
-import passport from 'passport';
-import path from 'path';
-import nunjucks from 'nunjucks';
-import favicon from 'serve-favicon';
 
+import { Conf } from './conf/conf';
 import { Request, Response, NextFunction as nextFunc } from 'express';
 import { Apps } from './routes/routes';
 import { WinstonLogger, LoggerStream } from './lib/winstonLogger';
 import { IError } from './lib/interfaces';
-import { PassportConf } from './lib/passportConfig';
 
 // class Server
 export class Server extends WinstonLogger {
@@ -33,59 +25,7 @@ export class Server extends WinstonLogger {
   }
 
   public config () {
-    // favicon
-    this.app.use(favicon(path.join(__dirname, 'assets', 'img', 'monhun.ico')));
-
-    // js, common path
-    this.app.use(express.static(path.join(__dirname, 'assets')));
-
-    // view templates path
-    this.app.set('views', path.join(__dirname));
-
-    // view engjine nunjucks config
-    nunjucks.configure(this.app.get('views'), {
-      autoescape: true,
-      express: this.app
-    });
-    this.app.set('view engine', 'njk');
-
-    // use json parser
-    this.app.use(bodyParser.json());
-
-    // use query string parser
-    this.app.use(bodyParser.urlencoded({
-      extended: true
-    }));
-
-    // use method override
-    this.app.use(methodOverride());
-
-    // use cookie parser
-    // signature: SECRET GOES HERE
-    this.app.use(cookieParser('SECRET_GOES_HERE'));
-
-    // use winston logger
-    this.logger.info(`** success express config loaded  **`);
-    this.app.use(require('morgan')('dev',
-      {
-        stream: new LoggerStream()
-      },
-      {
-        flags: 'a'
-      }
-    ));
-
-    // use session
-    this.app.use(session({
-      secret: 'secretcode',
-      resave: true,
-      saveUninitialized: false
-    }));
-
-    // use passport
-    this.app.use(passport.initialize());
-    this.app.use(passport.session());
-    new PassportConf().passportConf();
+    new Conf(this.app).config();
   }
 
   public routes () {

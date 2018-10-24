@@ -21,8 +21,8 @@ let httpPort = normalizePort(process.env.Port || 8080);
 let app = server.Server.bootstrap().app;
 app.set('port', httpPort);
 let httpServer = https.createServer({
-  key: fs.readFileSync('/Users/capkum/https_key.pem'),
-  cert: fs.readFileSync('/Users/capkum/cert.pem')
+  key: fs.readFileSync('/Users/capkum/.ssh/https_key.pem'),
+  cert: fs.readFileSync('/Users/capkum/.ssh/cert.pem')
 }, app);
 
 httpServer.listen(httpPort);

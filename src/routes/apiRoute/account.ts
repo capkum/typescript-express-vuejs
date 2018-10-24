@@ -3,6 +3,7 @@ import passport from 'passport';
 import { BaseRoute } from '../baseRoute';
 import { Logger } from 'winston';
 import { WinstonLogger } from '../../lib/winstonLogger';
+import Book from '../../models/book';
 
 export class AccountApi extends BaseRoute {
   public static logger: Logger = new WinstonLogger().loggerType();
@@ -72,6 +73,14 @@ export class AccountApi extends BaseRoute {
       }
     });
 
+    router.get('/test', (req: Request, res: Response) => {
+      new AccountApi().test(req, res);
+    });
+
+    router.get('/test/dave', (req: Request, res: Response) => {
+      new AccountApi().testCreate(req, res);
+    });
+
     // router.put('/api/login', (req: Request, res: Response) => {
     //   signApi.update(req, res);
     // });
@@ -95,6 +104,33 @@ export class AccountApi extends BaseRoute {
     // let snsAouth = req.body.snsAouth;
 
     res.json(req.body);
+  }
+
+  public test (req: Request, res: Response) {
+    Book.find()
+      .sort({ published_date: -1 })
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  }
+
+  public testCreate (req: Request, res: Response) {
+    const title = 'Python3';
+    const author = 'capture1';
+    let book = new Book({
+      title,
+      author
+    });
+    book.save().then(() => {
+      res.redirect('../test');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
   }
 
   // public update (req: Request, res: Response) {

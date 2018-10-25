@@ -29,8 +29,7 @@ export class Server extends WinstonLogger {
   }
 
   public routes () {
-    let router: express.Router;
-    router = express.Router();
+    const router: express.Router = express.Router();
 
     new Apps(router).apps();
 
@@ -50,14 +49,13 @@ export class Server extends WinstonLogger {
 
     this.app.use((err: IError, req: Request, res: Response, next: nextFunc) => {
       res.locals.message = err.message;
+      res.locals.status = err.status;
       res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-      // render the error page
-      res.status(err.status || 500);
-      // res.render('views/error');
+      res.render(`views/errors/${err.status}`, res.locals);
 
       // use winston logger
-      this.logger.error(`${err.status} ${err.message} ${err.stack}`);
+      this.logger.debug(`${err.status} ${err.message} ${err.stack}`);
 
       next();
     });

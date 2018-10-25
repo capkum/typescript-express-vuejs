@@ -18,15 +18,15 @@
             <div class="navbar-item">
                 <div class="buttons">
                     {% if loginStatus === true %}
-                    <a href="./api/sign/account/logout" class="button is-danger">
+                    <a href="./api/account/logout" class="button is-danger">
                         logout
                     </a>
                     {% else %}
-                    <a href="#" class="button is-info">
-                        Sign
+                    <a href="./signup" class="button is-info">
+                        Sign Up
                     </a>
-                    <a href="./account" class="button is-primary">
-                        Login
+                    <a href="./login" class="button is-primary">
+                        Log In
                     </a>
                     {% endif %}
                 </div>

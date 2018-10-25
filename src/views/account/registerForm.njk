@@ -1,0 +1,79 @@
+{% extends "../baseLayout/base.njk" %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="../../css/account/base.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+{% endblock%}
+
+{% block constents %}
+<div class="column is-4 is-offset-4 has-text-centered">
+    <div id="regForm" class="box has-background-white">
+        <h1 class="title has-text-grey" id="app-2">
+            Account
+        </h1>
+        <p class="subtitle has-text-grey"> Pleass insert ID, PASSWORD </p>
+        <form action="#" class="sign-form">
+            <div class="field">
+                <div class="control">
+                    <input name="userEmail" type="email"  v-model="userEmail" v-validate="'required|email'" :class="{'input': true, 'is-large': true, 'is-danger': errors.has('userEmail')}"
+                        placeholder="EMAIL">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input name="userPwd" type="password" v-model="userPwd" v-validate="'required|min:6'" :class="{'input': true, 'is-large': true, 'is-danger': errors.has('userPwd')}"
+                        placeholder="Password">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input name="userName" type="text" v-model="userName" v-validate="'required|min:2'" :class="{'input': true, 'is-large': true, 'is-danger': errors.has('userName')}"
+                        placeholder="NAME">
+                </div>
+            </div>
+        </form>
+        <div class="buttons">
+            <button class="button is-warning is-medium is-fullwidth" @click.prevent="localRegister($event)">
+                <span>
+                    Local
+                </span>
+            </button>
+            <button class="button is-warning is-medium is-fullwidth" @click.prevent="oauthLogin($event, 'kakao')">
+                <span class="icon is-small">
+                    <i class="fab fa-facebook-square"></i>
+                </span>
+                <span>
+                    Kakao
+                </span>
+            </button>
+            <button class="button is-info is-medium is-fullwidth" @click="oauthLogin($event, 'facebook')">
+                <span class="icon is-small">
+                    <i class="fab fa-facebook-square"></i>
+                </span>
+                <span>
+                    Facebook
+                </span>
+            </button>
+            <button class="button is-danger is-medium is-fullwidth" @click="oauthLogin($event, 'google')">
+                <span class="icon is-small">
+                    <i class="fab fa-google"></i>
+                </span>
+                <span>Google</span>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/common/vee-validate.js"></script>
+<script src="js/common/vee-validate-ko.js"></script>
+<script src="js/common/vueConfig.js"></script>
+<script src="js/account/register.js"></script>
+{% endblock %}

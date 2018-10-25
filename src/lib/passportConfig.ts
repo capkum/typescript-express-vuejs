@@ -47,7 +47,7 @@ export class PassportConf extends WinstonLogger {
     passport.use(new FacebookStrategy({
       clientID: String(process.env.FACEBOOK_CLIENT_ID),
       clientSecret: String(process.env.FACEBOOK_CLIENT_SECRET),
-      callbackURL: '/api/sign/oauth/facebook/callback',
+      callbackURL: '/api/oauth/facebook/callback',
       profileFields: ['id', 'displayName', 'photos', 'email'],
       enableProof: true
     },
@@ -62,7 +62,7 @@ export class PassportConf extends WinstonLogger {
     passport.use(new GoogleStrategy({
       clientID: String(process.env.GOOGLE_CLIENT_ID),
       clientSecret: String(process.env.GOOGLE_CLIENT_SECRET),
-      callbackURL: '/api/sign/oauth/google/callback'
+      callbackURL: '/api/oauth/google/callback'
     },
       (accessToken, refreshToken, profile, done) => {
         this.logger.debug(`${JSON.stringify(profile._json)}`);
@@ -74,12 +74,12 @@ export class PassportConf extends WinstonLogger {
   public localStrategy () {
     passport.use(new LocalStrategy(
       {
-        usernameField: 'userid',
-        passwordField: 'userpwd'
+        usernameField: 'userEmail',
+        passwordField: 'userPwd'
       },
-      (userid, userpwd, done) => {
-        if (userid === 'capture1') {
-          return done(null, userid);
+      (userEmail, userpwd, done) => {
+        if (userEmail === 'capnaver@naver.com') {
+          return done(null, userEmail);
         } else {
           return done(null, false);
         }

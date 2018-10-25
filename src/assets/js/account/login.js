@@ -12,7 +12,7 @@ new Vue({
   methods: {
     oauthLogin: function (event, usersns) {
       event.preventDefault();
-      window.location.href = `${baseUri}/api/sign/oauth/${usersns}`;
+      window.location.href = `${baseUri}/api/oauth/${usersns}`;
     },
     localLogin: function (event) {
       event.preventDefault();
@@ -20,7 +20,7 @@ new Vue({
       this.$validator.validateAll()
         .then(cb => {
           if (cb) {
-            let apiPath = `${baseUri}/api/sign/account`
+            let apiPath = `${baseUri}/api/account/login`
             axios.post(apiPath, {
                 userid: this.userid,
                 userpwd: this.userpwd

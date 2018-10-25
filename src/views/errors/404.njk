@@ -1,0 +1,18 @@
+{% extends "../baseLayout/base.njk" %}
+
+{% block title %}
+Error
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="../css/err.css">
+{% endblock %}
+
+{% block constents %}
+<div class="column is-12 has-text-centered">
+    <div class="bg_img err_txt ">
+        {{ status }} <br>
+        {{ message }}
+    </div>
+</div>
+{% endblock %}

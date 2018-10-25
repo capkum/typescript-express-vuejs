@@ -1,17 +1,23 @@
+/**
+ *  로그인
+ *  Router 등록순선
+ *  1. server.ts의 router에 routes.ts 호출
+ *  2. routes.ts에서 각 앱들의 라우터를 호출
+ */
 import { Request, Response, Router } from 'express';
 import passport from 'passport';
-import { BaseRoute } from '../baseRoute';
+import { BaseRoute } from '../../baseRoute';
 import { Logger } from 'winston';
-import { WinstonLogger } from '../../lib/winstonLogger';
-import Book from '../../models/book';
+import { WinstonLogger } from '../../../lib/winstonLogger';
+import Book from '../../../models/book';
 
-export class AccountApi extends BaseRoute {
+export class LogInOut extends BaseRoute {
   public static logger: Logger = new WinstonLogger().loggerType();
   public static createRoute (router: Router) {
-    let signApi: AccountApi = new AccountApi();
+    let logInOut: LogInOut = new LogInOut();
 
     // local account
-    router.post('/api/sign/account', passport.authenticate('local'), (req, res) => {
+    router.post('/api/account/login', passport.authenticate('local'), (req, res) => {
       let options: Object = {
         'userid': req.body.userid,
         'userpwd': req.body.userpwd
@@ -21,13 +27,13 @@ export class AccountApi extends BaseRoute {
     });
 
     // oauth kakao
-    router.get('/api/sign/oauth/kakao', passport.authenticate('kakao', {
-      failureRedirect: '#!/account'
+    router.get('/api/oauth/kakao', passport.authenticate('kakao', {
+      failureRedirect: '#!/login'
     }));
 
-    router.get('/api/sign/oauth/kakao/callback',
+    router.get('/api/oauth/kakao/callback',
       passport.authenticate('kakao', {
-        failureRedirect: '#!/account'
+        failureRedirect: '#!/login'
       }),
       (req: Request, res: Response, next) => {
         this.logger.info(`[LOGIN] id:${req.user._json.id} ${req.user._json.properties.nickname}`);
@@ -36,11 +42,11 @@ export class AccountApi extends BaseRoute {
     );
 
     // oauth facebook
-    router.get('/api/sign/oauth/facebook', passport.authenticate('facebook'));
+    router.get('/api/oauth/facebook', passport.authenticate('facebook'));
 
-    router.get('/api/sign/oauth/facebook/callback',
+    router.get('/api/oauth/facebook/callback',
       passport.authenticate('facebook', {
-        failureRedirect: '/account'
+        failureRedirect: '/login'
       }),
       (req: Request, res: Response) => {
         this.logger.info(`[LOGIN] id:${req.user._json.id} ${req.user._json.name}`);
@@ -48,13 +54,13 @@ export class AccountApi extends BaseRoute {
       });
 
     // oauth google
-    router.get('/api/sign/oauth/google/', passport.authenticate('google',{
+    router.get('/api/oauth/google/', passport.authenticate('google',{
       scope: ['profile']
     }));
 
-    router.get('/api/sign/oauth/google/callback',
+    router.get('/api/oauth/google/callback',
       passport.authenticate('google', {
-        failureRedirect: '/account'
+        failureRedirect: '/login'
       }),
       (req: Request, res: Response) => {
         this.logger.info(`[LOGIN] id:${req.user._json.id} ${req.user.displayName}`);
@@ -62,7 +68,7 @@ export class AccountApi extends BaseRoute {
       });
 
     // log out
-    router.get('/api/sign/account/logout', (req: Request, res: Response) => {
+    router.get('/api/account/logout', (req: Request, res: Response) => {
       this.logger.info(`[LOGOUT] id:${req.user._json.id} ${req.user._json.name}`);
       req.logout();
 
@@ -74,36 +80,16 @@ export class AccountApi extends BaseRoute {
     });
 
     router.get('/test', (req: Request, res: Response) => {
-      new AccountApi().test(req, res);
+      logInOut.test(req, res);
     });
 
     router.get('/test/dave', (req: Request, res: Response) => {
-      new AccountApi().testCreate(req, res);
+      logInOut.testCreate(req, res);
     });
-
-    // router.put('/api/login', (req: Request, res: Response) => {
-    //   signApi.update(req, res);
-    // });
-
-    // router.get('/api/login/:userid', (req: Request, res: Response) => {
-    //   signApi.select(req, res);
-    // });
-
-    // router.delete('/api/login/:userid', (req: Request, res: Response) => {
-    //   signApi.delete(req, res);
-    // });
   }
 
   constructor () {
     super();
-  }
-
-  public create (req: Request, res: Response) {
-    // let userid = req.body.userid;
-    // let userpwd = req.body.userpwd;
-    // let snsAouth = req.body.snsAouth;
-
-    res.json(req.body);
   }
 
   public test (req: Request, res: Response) {
@@ -132,17 +118,4 @@ export class AccountApi extends BaseRoute {
     });
 
   }
-
-  // public update (req: Request, res: Response) {
-  //   res.send('회원정보 수정');
-  // }
-
-  // public select (req: Request, res: Response) {
-  //   res.send('회원정보');
-  // }
-
-  // public delete (req: Request, res: Response) {
-  //   res.send('회원정보 삭제');
-  // }
-
 }
